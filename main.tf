@@ -53,7 +53,6 @@ resource "azurerm_network_interface" "this_public" {
     subnet_id                      = "${var.subnet_id}"
     private_ip_address             = "${var.private_ip_address}"
     public_ip_address_id           = "${azurerm_public_ip.this.id}"
-    application_security_group_ids = "${var.application_security_group_ids}"
   }
 
   tags = "${var.tags}"

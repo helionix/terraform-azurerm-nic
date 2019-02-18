@@ -59,12 +59,6 @@ variable "subnet_id" {
   type        = "string"
 }
 
-variable "application_security_group_ids" {
-  description = "List of Application Security Group IDs which should be attached to this NIC."
-  type        = "list"
-  default     = []
-}
-
 # Public IP parameters
 
 variable "assign_public_ip" {
