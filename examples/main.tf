@@ -1,3 +1,7 @@
+variable "subnet_name" {
+  default = "default"
+}
+
 resource "azurerm_resource_group" "rg" {
   location = "EastUS"
   name = "my-rg"
@@ -5,7 +9,6 @@ resource "azurerm_resource_group" "rg" {
 
 module "vnet" {
   source = "github.com/helionix/terraform-azurerm-vnet"
-  version = "v0.0.1"
   
   resource_group_name = "${azurerm_resource_group.rg.name}"
   address_space = "10.0.0.0/16"
@@ -24,7 +27,7 @@ module "nic" {
 
   resource_group_name = "${azurerm_resource_group.rg.name}"
   name = "my-nic"
-  subnet_id = "${module.vnet.vnet_subnets_ids}"
+  subnet_id = "${element(module.vnet.vnet_subnets_ids, index(module.vnet.vnet_subnets_names, var.subnet_name))}"
 
   tags = {
     environment = "myenv"
